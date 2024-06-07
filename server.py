@@ -17,6 +17,6 @@ from drflearn import asgi
 #asyncio.run(serve(asgi:application, Config()))
 result= asyncio.run(serve(asgi.application, Config(
     
-    port=8000
+    
 )))
 print(result)
