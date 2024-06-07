@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,13 +27,15 @@ SECRET_KEY = 'django-insecure-@0!oskyzu70tq^iu$r586bofsuib0u*syin@r4^(4m(&&n(9d_
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'drflearn.onrender.com'
+    'drflearn.onrender.com',
+    '127.0.0.1'
 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +45,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'login',
     'product',
+    'chat',
 ]
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,7 +69,9 @@ ROOT_URLCONF = 'drflearn.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'chat/templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,7 +83,7 @@ TEMPLATES = [
         },
     },
 ]
-
+ASGI_APPLICATION = 'drflearn.asgi.application'
 WSGI_APPLICATION = 'drflearn.wsgi.application'
 
 
